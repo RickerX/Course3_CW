@@ -1,17 +1,17 @@
 package com.example.course3_cw.services;
 
-import com.example.course3_cw.model.Product;
-
-import java.util.Collection;
+import com.example.course3_cw.dto.ProductRequest;
+import com.example.course3_cw.model.Color;
+import com.example.course3_cw.model.Size;
 
 public interface ProductService {
-    Collection<Product> getAllProduct();
+    void addProduct(ProductRequest productRequest);
 
-    Product add(Product product);
+    void issueProduct(ProductRequest productRequest);
 
-    Product getById(Long lastId);
+    void removeDefectiveProduct(ProductRequest productRequest);
 
-    Product deleteById(Long lastId);
+    void decreaseProductQuantity(ProductRequest productRequest);
 
-    Product updateById(Long lastId, Product product);
+    int getProductQuantity(Color color, Size size, Integer cottonMin, Integer cottonMax);
 }
