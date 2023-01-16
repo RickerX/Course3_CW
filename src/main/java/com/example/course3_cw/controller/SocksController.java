@@ -1,5 +1,5 @@
 package com.example.course3_cw.controller;
-import com.example.course3_cw.dto.ProductRequest;
+import com.example.course3_cw.dto.SocksRequest;
 import com.example.course3_cw.exception.InSufficientProductQuantityException;
 import com.example.course3_cw.exception.InvalidProductRequestException;
 import com.example.course3_cw.model.Color;
@@ -11,39 +11,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping
 @Tag(name = "Носки", description = "CRUD - операции")
-public class ProductController {
+public class SocksController {
     private final ProductServiceImpl productService;
 
-    public ProductController(ProductServiceImpl productService) {
+    public SocksController(ProductServiceImpl productService) {
         this.productService = productService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/api/socks")
     @Operation(summary = "Добавление носков на склад")
-    public void addProduct(@RequestBody ProductRequest productRequest) {
+    public void addProduct(@RequestBody SocksRequest productRequest) {
         productService.addProduct(productRequest);
     }
 
-    @PutMapping("/issue")
+    @PutMapping("/api/socks")
     @Operation(summary = "Отпуск носков со склада")
-    public void issuesProduct(@RequestBody ProductRequest productRequest) {
+    public void issuesProduct(@RequestBody SocksRequest productRequest) {
         productService.issueProduct(productRequest);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/api/socks")
     @Operation(summary = "Поиск носков на складе")
     public int getProductCount(@RequestParam(required = false, name = "color") Color color,
-                               @RequestParam(required = false, name = "size") Size size,
+                               @RequestParam(required = false, name = "size")Size size,
                                @RequestParam(required = false, name = "cottonMin") Integer cottonMin,
                                @RequestParam(required = false, name = "cottonMax") Integer cottonMax) {
         return productService.getProductQuantity(color, size, cottonMin, cottonMax);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/api/socks")
     @Operation(summary = "Списание носков со склада")
-    public void removeDefectiveProduct(@RequestBody ProductRequest productRequest) {
+    public void removeDefectiveProduct(@RequestBody SocksRequest productRequest) {
         productService.removeDefectiveProduct(productRequest);
     }
 

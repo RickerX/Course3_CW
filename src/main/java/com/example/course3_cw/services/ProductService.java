@@ -1,17 +1,17 @@
 package com.example.course3_cw.services;
 
-import com.example.course3_cw.dto.ProductRequest;
+import com.example.course3_cw.dto.SocksRequest;
 import com.example.course3_cw.model.Color;
 import com.example.course3_cw.model.Size;
 
 public interface ProductService {
-    void addProduct(ProductRequest productRequest);
+    void addProduct(SocksRequest productRequest);
 
-    void issueProduct(ProductRequest productRequest);
+    void issueProduct(SocksRequest productRequest);
 
-    void removeDefectiveProduct(ProductRequest productRequest);
+    void removeDefectiveProduct(SocksRequest productRequest);
 
-    void decreaseProductQuantity(ProductRequest productRequest);
+    void decreaseProductQuantity(SocksRequest productRequest);
 
     int getProductQuantity(Color color, Size size, Integer cottonMin, Integer cottonMax);
 }

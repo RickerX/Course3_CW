@@ -2,13 +2,13 @@ package com.example.course3_cw.dto;
 import com.example.course3_cw.model.Color;
 import com.example.course3_cw.model.Size;
 
-public class ProductRequest {
+public class SocksRequest {
     private final Color color;
     private final Size size;
     private final int cottonPercentage;
     private final int quantity;
 
-    public ProductRequest(Color color, Size size, int cottonPercentage, int quantity) {
+    public SocksRequest(Color color, Size size, int cottonPercentage, int quantity) {
         this.color = color;
         this.size = size;
         this.cottonPercentage = cottonPercentage;

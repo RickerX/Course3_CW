@@ -1,9 +1,9 @@
 package com.example.course3_cw.services.impl;
-import com.example.course3_cw.dto.ProductRequest;
+import com.example.course3_cw.dto.SocksRequest;
 import com.example.course3_cw.exception.InSufficientProductQuantityException;
 import com.example.course3_cw.exception.InvalidProductRequestException;
 import com.example.course3_cw.model.Color;
-import com.example.course3_cw.model.Product;
+import com.example.course3_cw.model.Socks;
 import com.example.course3_cw.model.Size;
 import com.example.course3_cw.services.ProductService;
 import org.springframework.stereotype.Service;
@@ -13,33 +13,33 @@ import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final Map<Product, Integer> products = new HashMap<>();
+    private final Map<Socks, Integer> socks = new HashMap<>();
     @Override
-    public void addProduct(ProductRequest productRequest) {
+    public void addProduct(SocksRequest productRequest) {
         validateRequest(productRequest);
-        Product product = mapToProduct(productRequest);
-        if (products.containsKey(product)) {
-            products.put(product, products.get(product) + productRequest.getQuantity());
+        Socks product = mapToProduct(productRequest);
+        if (socks.containsKey(product)) {
+            socks.put(product, socks.get(product) + productRequest.getQuantity());
         } else {
-            products.put(product, productRequest.getQuantity());
+            socks.put(product, productRequest.getQuantity());
         }
     }
     @Override
-    public void issueProduct(ProductRequest productRequest) {
+    public void issueProduct(SocksRequest productRequest) {
        decreaseProductQuantity(productRequest);
     }
     @Override
-    public void removeDefectiveProduct(ProductRequest productRequest) {
+    public void removeDefectiveProduct(SocksRequest productRequest) {
         decreaseProductQuantity(productRequest);
 
     }
     @Override
-    public void decreaseProductQuantity(ProductRequest productRequest) {
+    public void decreaseProductQuantity(SocksRequest productRequest) {
         validateRequest(productRequest);
-        Product product = mapToProduct(productRequest);
-        int productQuantity = products.getOrDefault(product,0);
+        Socks product = mapToProduct(productRequest);
+        int productQuantity = socks.getOrDefault(product,0);
         if (productQuantity >= productRequest.getQuantity()) {
-            products.remove(product, productQuantity - productRequest.getQuantity());
+            socks.remove(product, productQuantity - productRequest.getQuantity());
         } else {
             throw new InSufficientProductQuantityException("Носков больше нет");
         }
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int getProductQuantity(Color color, Size size, Integer cottonMin, Integer cottonMax) {
         int total = 0;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+        for (Map.Entry<Socks, Integer> entry : socks.entrySet()) {
             if (color != null && !entry.getKey().getColor().equals(color)) {
                 continue;
             }
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
         return total;
     }
 
-    private void validateRequest(ProductRequest productRequest) {
+    private void validateRequest(SocksRequest productRequest) {
         if (productRequest.getColor() == null || productRequest.getSize() == null) {
             throw new InvalidProductRequestException("Все поля должны быть заполнены.");
         }
@@ -77,8 +77,8 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private Product mapToProduct(ProductRequest productRequest) {
-        return new Product(productRequest.getColor(),
+    private Socks mapToProduct(SocksRequest productRequest) {
+        return new Socks(productRequest.getColor(),
                 productRequest.getSize(),
                 productRequest.getCottonPercentage());
     }
