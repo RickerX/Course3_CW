@@ -1,15 +1,18 @@
 package com.example.course3_cw.model;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.util.Objects;
 
 @Data
-@AllArgsConstructor
 public class Socks {
     private final Color color;
     private final Size size;
     private final int cottonPercentage;
+    public Socks(Color color, int size, int cottonPercentage) {
+        this.color = color;
+        this.size = Size.forValues(size);
+        this.cottonPercentage = cottonPercentage;
+    }
+
     public Color getColor() {
         return color;
     }

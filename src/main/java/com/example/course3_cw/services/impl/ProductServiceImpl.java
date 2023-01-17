@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     private Socks mapToProduct(SocksRequest productRequest) {
         return new Socks(productRequest.getColor(),
-                productRequest.getSize(),
+                productRequest.getSize().ordinal(),
                 productRequest.getCottonPercentage());
     }
 

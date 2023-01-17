@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/socks")
 @Tag(name = "Носки", description = "CRUD - операции")
 public class SocksController {
     private final ProductServiceImpl productService;
@@ -20,28 +20,28 @@ public class SocksController {
         this.productService = productService;
     }
 
-    @PostMapping("/api/socks")
+    @PostMapping
     @Operation(summary = "Добавление носков на склад")
     public void addProduct(@RequestBody SocksRequest productRequest) {
         productService.addProduct(productRequest);
     }
 
-    @PutMapping("/api/socks")
+    @PutMapping
     @Operation(summary = "Отпуск носков со склада")
     public void issuesProduct(@RequestBody SocksRequest productRequest) {
         productService.issueProduct(productRequest);
     }
 
-    @GetMapping("/api/socks")
+    @GetMapping
     @Operation(summary = "Поиск носков на складе")
     public int getProductCount(@RequestParam(required = false, name = "color") Color color,
                                @RequestParam(required = false, name = "size")Size size,
                                @RequestParam(required = false, name = "cottonMin") Integer cottonMin,
                                @RequestParam(required = false, name = "cottonMax") Integer cottonMax) {
-        return productService.getProductQuantity(color, size, cottonMin, cottonMax);
+        return productService.getProductQuantity(color,size, cottonMin, cottonMax);
     }
 
-    @DeleteMapping("/api/socks")
+    @DeleteMapping
     @Operation(summary = "Списание носков со склада")
     public void removeDefectiveProduct(@RequestBody SocksRequest productRequest) {
         productService.removeDefectiveProduct(productRequest);
